@@ -4,14 +4,14 @@ var trash = document.getElementsByClassName("fa-trash");
 
 Array.from(thumbUp).forEach(function(element) {
       element.addEventListener('click', function(){
-        const name = this.parentNode.parentNode.childNodes[1].innerText
+        const mood = this.parentNode.parentNode.childNodes[1].innerText
         const msg = this.parentNode.parentNode.childNodes[3].innerText
         const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
-        fetch('messages', {
+        fetch('mood-post', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
-            'name': name,
+            'mood': mood,
             'msg': msg,
             'thumbUp':thumbUp
           })
@@ -28,14 +28,14 @@ Array.from(thumbUp).forEach(function(element) {
 
 Array.from(thumbDown).forEach(function(element) {
   element.addEventListener('click', function(){
-    const name = this.parentNode.parentNode.childNodes[1].innerText
+    const mood = this.parentNode.parentNode.childNodes[1].innerText
     const msg = this.parentNode.parentNode.childNodes[3].innerText
     const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
     fetch('thumbDown', {
       method: 'put',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        'name': name,
+        'mood': mood,
         'msg': msg,
         'thumbUp':thumbUp
       })
@@ -52,15 +52,15 @@ Array.from(thumbDown).forEach(function(element) {
 
 Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){
-        const name = this.parentNode.parentNode.childNodes[1].innerText
+        const mood = this.parentNode.parentNode.childNodes[1].innerText
         const msg = this.parentNode.parentNode.childNodes[3].innerText
-        fetch('messages', {
+        fetch('mood-delete', {
           method: 'delete',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            'name': name,
+            'mood': mood,
             'msg': msg
           })
         }).then(function (response) {

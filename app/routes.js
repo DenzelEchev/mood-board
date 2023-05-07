@@ -29,7 +29,7 @@ module.exports = function(app, passport, db) {
 // message board routes ===============================================================
 
     app.post('/mood-post', (req, res) => {
-      db.collection('mood-post').save({mood: req.body.mood, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
+      db.collection('mood-post').save({mood: req.body.mood, msg: req.body.msg, liked: false}, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
@@ -40,22 +40,7 @@ module.exports = function(app, passport, db) {
       db.collection('mood-post')
       .findOneAndUpdate({mood: req.body.mood, msg: req.body.msg}, {
         $set: {
-          thumbUp:req.body.thumbUp + 1
-        }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
-    })
-
-    app.put('/thumbDown', (req, res) => {
-      db.collection('mood-post')
-      .findOneAndUpdate({mood: req.body.mood, msg: req.body.msg}, {
-        $set: {
-          thumbUp:req.body.thumbUp - 1
+          liked:req.body.liked = true
         }
       }, {
         sort: {_id: -1},
